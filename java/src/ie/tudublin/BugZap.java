@@ -5,63 +5,91 @@ import processing.core.PApplet;
 public class BugZap extends PApplet
 {
 
+	
 	public void settings()
 	{
 		size(500, 500);
 	}
+	float playerX, playerY;
+	float playerWidth = 50;
+	float playerHalfWidth = playerWidth / 2;
+
+	float bugX, bugY, bugWidth = 30;
+	float halfBugWidth = bugWidth / 2;
 
 	public void setup() {
 		colorMode(HSB);
-		background(0);
-
-		x1 = random(0, width);
-		x2 = random(0, width);
-		y1 = random(0, height);
-		y2 = random(0, height);
-
-		float range = 5;
-
-		x1dir = random(-range, range);
-		x2dir = random(-range, range);
-		y1dir = random(-range, range);
-		y2dir = random(-range, range);
-
-		smooth();
+		reset();
+		
 		
 	}
-
-	float x1, y1, x2, y2;
-	float x1dir, x2dir, y1dir, y2dir;
-	float c = 0;
 	
 	public void draw()
 	{	
-		strokeWeight(2);
-		stroke(c, 255, 255);
-		c = (c + 1f) % 255;
-		line(x1, y1, x2, y2);
+		background(0);
+		playerX = mouseX;
+		drawPlayer(playerX, playerY, 40);
+		drawBug(bugX, bugY++);
 
-		x1 += x1dir;
-		x2 += x2dir;
-		y1 += y1dir;
-		y2 += y2dir;
-		
-		if (x1 < 0 || x1 > width)
-		{
-			x1dir = - x1dir;
-		}
-		if (y1 < 0 || y1 > height)
-		{
-			y1dir = - y1dir;
-		}
+	}
 
-		if (x2 < 0 || x2 > width)
-		{
-			x2dir = - x2dir;
-		}
-		if (y2 < 0 || y2 > height)
-		{
-			y2dir = - y2dir;
+	
+
+	void drawPlayer(float x, float y, float w){
+		stroke(255);
+		float playerHeight = w / 2;
+		float playerHalfWidth = w / 2;
+		line(x - playerHalfWidth, y + playerHeight, x + playerHalfWidth, y + playerHeight);
+		line(x - playerHalfWidth, y + playerHeight, x, y);
+		line(x + playerHalfWidth, y + playerHeight, x, y);
+		line(x - playerHalfWidth, y + playerHeight * 0.5f, x - (playerHalfWidth * 0.8f), y + playerHeight * 0.3f);
+		line(x + playerHalfWidth, y + playerHeight * 0.5f, x + (playerHalfWidth * 0.8f), y + playerHeight * 0.3f);
+
+		line(x - (playerHalfWidth * 0.8f), y + playerHeight * 0.3f, x + (playerHalfWidth * 0.8f),
+				y + playerHeight * 0.3f);
+
+		line(x, y, x, y - playerHeight);
+	}
+
+	void drawBug(float x, float y){
+		// Draw the bug
+		stroke(255);
+		float saucerHeight = bugWidth * 0.7f;
+		line(x, y - saucerHeight, x - halfBugWidth, y);
+		line(x, y - saucerHeight, x + halfBugWidth, y);
+		// line(x - halfBugWidth, y, x - halfBugWidth, y);
+		line(x - halfBugWidth, y, x + halfBugWidth, y);
+		float feet = bugWidth * 0.1f;
+		line(x - feet, y, x - halfBugWidth, y + halfBugWidth);
+		line(x + feet, y, x + halfBugWidth, y + halfBugWidth);
+
+		feet = bugWidth * 0.3f;
+		line(x - feet, y, x - halfBugWidth, y + halfBugWidth);
+		line(x + feet, y, x + halfBugWidth, y + halfBugWidth);
+
+		float eyes = bugWidth * 0.1f;
+		line(x - eyes, y - eyes, x - eyes, y - eyes * 2f);
+		line(x + eyes, y - eyes, x + eyes, y - eyes * 2f);
+	}
+
+	private void reset(){
+		resetBug();
+		playerX = width / 2;
+		playerY = height - 50;
+	}
+
+	void resetBug(){
+		bugX = random(halfBugWidth, width - halfBugWidth);
+		bugY = 50;
+	}
+
+	public void keyPressed(){
+		if (key == ' '){
+			line(playerX, playerY, playerX, 100);
+			if (playerX > bugX - halfBugWidth && playerX < bugX + halfBugWidth){
+				resetBug();
+			}
+
 		}
 	}
 }
