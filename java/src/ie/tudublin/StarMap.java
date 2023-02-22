@@ -25,32 +25,6 @@ public class StarMap extends PApplet
 		printStars();
 	}
 
-	void printStars()
-	{
-		for(int i = 0 ; i < stars.size() ; i ++)
-		{
-			println(stars.get(i));
-		}
-	}
-
-	void displayStars()
-	{
-		for(int i = 0 ; i < stars.size() ; i ++)
-		{
-			stars.get(i).render(this);
-		}
-	}
-
-	public void loadStars()
-	{
-		Table table = loadTable("HabHYG15ly.csv", "header");
- 		for(TableRow r:table.rows())
- 		{
- 			Star s = new Star(r);
- 			stars.add(s);
- 		}
-	}
-
 	public void drawGrid()
 	{
 		stroke(255);
