@@ -62,9 +62,6 @@ public class Star
     public void setDistance(float distance) {
         this.distance = distance;
     }
-    public void setDisplayName(String displayName) {
-        this.displayName = displayName;
-    }
     public void setyG(float yG) {
         this.yG = yG;
     }

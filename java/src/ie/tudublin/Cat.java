@@ -2,15 +2,11 @@ package ie.tudublin;
 
 public class Cat {
     private int nineLives = 9;
-    private String name;
+    //private String name;
 
     public int getNumLives() {
         return this.nineLives;
     }
-    public Cat(String name){
-        this.name = name;
-    }
-
     public void Kill(){
         if(nineLives-- == 0){
             System.out.println("Dead");
