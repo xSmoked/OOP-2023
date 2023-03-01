@@ -58,9 +58,7 @@ public class Audio1 extends PApplet
     }
 
     float off = 0;
-
-    float lerpedBuffer[] = new float[1024];
-
+    
     public void draw()
     {
         //background(0);
