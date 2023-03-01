@@ -15,6 +15,7 @@ public class Audio1 extends PApplet
 
     int mode = 0;
 
+    float[] lerpedBuffer;
     float y = 0;
     float smoothedY = 0;
     float smoothedAmplitude = 0;
@@ -51,7 +52,7 @@ public class Audio1 extends PApplet
         ap.play();
         ab = ap.mix;
         colorMode(HSB);
-
+        lerpedBuffer = new float[width];
         y = height / 2;
         smoothedY = y;        
     }
@@ -99,26 +100,63 @@ public class Audio1 extends PApplet
             background(0);
             for(int i = 0 ; i < ab.size() ; i ++)
             {
-                //float c = map(ab.get(i), -1, 1, 0, 255);
                 float c = map(i, 0, ab.size(), 0, 255);
                 stroke(c, 255, 255);
-                float f = lerpedBuffer[i] * halfH * 4.0f;
+                float f = lerpedBuffer[i] * halfH;
                 line(i, halfH + f, halfH - f, i);                    
             }
-            break;      
+            break;
         case 2:
             background(0);
             for(int i = 0 ; i < ab.size() ; i ++)
             {
-                float c = map(i, 0, ab.size(), mouseX /2, mouseY/ 2);
+                float c = map(i, 0, ab.size(), 0, 255);
                 stroke(c, 255, 255);
                 float f = lerpedBuffer[i] * halfH * 4.0f;
-                line(0, i, f, i);              
-                line(width, i, width - f, i);              
-                line(i, 0, i, f);          
-                line(i, height, i, height - f);              
+                line(i, halfH + f, i, halfH - f);                 
             }
-            break;          
+            break;
+        case 3:
+            background(0);
+            for(int i = 0 ; i < ab.size() ; i ++)
+            {
+                float c = map(i, 0, ab.size(), 0, 255);
+                stroke(c, 255, 255);
+                float f = lerpedBuffer[i] * halfH * 15.0f;
+                line(i, 0 + f, i, 0 - f);
+                line(i, height + f, i, height - f);  
+                //line(0+f, i+f, 0, i);
+                line(0+f, i, 0, i); 
+                line(width+f, i, width, i);      
+            }
+            break;
+
+        case 4:
+            background(0);
+            for(int i = 0 ; i < ab.size() ; i ++)
+            {
+                float c = map(i, 0, ab.size(), 0, 255);
+                stroke(c, 255, 255);
+                float f = lerpedBuffer[i] * halfH;
+                rectMode(CENTER);
+                rect(halfH, halfH, i + f, i - f );
+            }
+            break;
+        case 5:
+            background(0);
+            for(int i = 0 ; i < ab.size() ; i ++)
+            {
+                float c = map(i, 0, ab.size(), 0, 255);
+                stroke(c, 255, 255);
+                float f = lerpedBuffer[i] * halfH * 15.0f; ;
+                line(i, 0 + f, i, 0 - f);
+                line(i, height + f, i, height - f);  
+                //line(0+f, i+f, 0, i);
+                line(0+f, i, 0, i); 
+                line(width+f, i, width, i);      
+                line(0, halfH + f, width, halfH - f);            
+            }
+            break;
         }
 
 
