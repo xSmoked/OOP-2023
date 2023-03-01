@@ -48,7 +48,7 @@ public class Audio1 extends PApplet
         // ab = ai.mix; 
 
         // And comment the next two lines out
-        ap = minim.loadFile("heroplanet.mp3", 1024);
+        ap = minim.loadFile("heart.mp3", 1024);
         ap.play();
         ab = ap.mix;
         colorMode(HSB);
@@ -145,7 +145,7 @@ public class Audio1 extends PApplet
             {
                 float c = map(i, 0, ab.size(), 0, 255);
                 stroke(c, 255, 255);
-                float f = lerpedBuffer[i] * halfH * 15.0f; ;
+                float f = lerpedBuffer[i] * halfH * 2.0f; ;
                 line(i, 0 + f, i, 0 - f);
                 line(i, height + f, i, height - f);  
                 //line(0+f, i+f, 0, i);
