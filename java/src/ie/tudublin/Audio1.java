@@ -15,7 +15,6 @@ public class Audio1 extends PApplet
 
     int mode = 0;
 
-    float[] lerpedBuffer;
     float y = 0;
     float smoothedY = 0;
     float smoothedAmplitude = 0;
