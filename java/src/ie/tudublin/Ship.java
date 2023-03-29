@@ -7,6 +7,10 @@ public class Ship {
     private PVector pos;
     private PVector forward;
     private PApplet p;
+    private int fireRate = 3;
+    private long currentTime = 0;
+    private long nextSecond = 0;
+    timer fireTimer;
 
     public Ship(float x, float y, float size, int c, PApplet p)
     {
@@ -16,6 +20,8 @@ public class Ship {
         this.halfSize = size / 2;
         this.c = c;       
         this.p = p;  
+        this.fireTimer = new timer();
+        this.fireTimer.start();
     }
 
 
@@ -51,6 +57,16 @@ public class Ship {
 
     public void move()
     {
+        currentTime = fireTimer.getSeconds();
+        if(fireRate == 3){
+            nextSecond = currentTime + 5;
+        }
+        if(currentTime >= nextSecond)
+        {
+            fireRate = 3;
+        }
+        
+
         forward.x = PApplet.sin(rot);
         forward.y = - PApplet.cos(rot);
 
@@ -77,16 +93,19 @@ public class Ship {
             pos.x -= forward.x;
             pos.y -= forward.y;
         }
-        if (yasc.keys[' '])
+        if (yasc.keys[' '] && fireRate-- > 0)
         {
             PVector inFront = PVector.add(pos,
                 PVector.mult(forward, 30)
                 );  
-            
+            PApplet.println(fireRate);
             Bullet b = new Bullet(inFront.x, inFront.y, rot, c, p);
-
+            
             ((YASC)p).bullets.add(b);
+            
         }
+        
+
     }
 
     public void render()
